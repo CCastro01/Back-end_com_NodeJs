@@ -9,7 +9,19 @@ const app = express()
 //PUT: Alterar uma informação no back-end
 //DELETE: Deletar uma informação no back-end 
 
+ 
+/**
+ * TIPOS DE PARÂMETROS
+ * 
+ * Query Params: Principalmente para filtos e paginação
+ * Route Params:
+ * Request Body:
+ */
+
 app.get('/projects', (request, response) => {
+   const query = request.query
+   console.log(query)
+
    return response.json([
       "Projeto 1",
       "Projeto 2"
