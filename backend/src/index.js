@@ -19,8 +19,18 @@ const app = express()
  */
 
 app.get('/projects', (request, response) => {
+
+   // Forma comum:
    const query = request.query
    console.log(query)
+   console.log(query.nome)
+   console.log(query.idade)
+
+   // Utilizando desestruração:
+   const {nome, idade} = request.query 
+   console.log(nome)
+   console.log(idade)
+
 
    return response.json([
       "Projeto 1",
