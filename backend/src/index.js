@@ -1,7 +1,10 @@
 const express = require("express")
-const { request, response, query } = require("express")
-
 const app = express()
+
+app.use(express.json()) //fazendo com que o express consiga interpretar um JSON
+
+
+
 //MÉTODOS HTTP
 // 
 //GET: Buscar informações do back-end
@@ -15,7 +18,7 @@ const app = express()
  * 
  * Query Params: Principalmente para filtos e paginação
  * Route Params: Identificar recursos (Atualizar ou deletar)
- * Request Body:
+ * Request Body: Conteúdo na hora de criar ou editar um recurso (JSON)
  */
 
 app.get('/projects', (request, response) => {
@@ -38,13 +41,33 @@ app.get('/projects', (request, response) => {
    ])
 })
 
+
+
+
+
 app.post('/projects', (request, response) => {
+
+   // Forma comum:
+   const body = request.body
+   console.log(body)
+
+   // Utilizando desestruração:
+   const {nome} = request.body
+   const {curso} = request.body
+   console.log(nome)
+   console.log(curso)
+
    return response.json([
       "Projeto 1",
       "Projeto 2",
       "Projeto 3"
    ])
 })
+
+
+
+
+
 
 app.put('/projects/:id', (request, response) => {
 
@@ -63,12 +86,23 @@ app.put('/projects/:id', (request, response) => {
    ])
 })
 
+
+
+
+
+
+
 app.delete('/projects/:id', (request, response) => {
    return response.json([
       "Projeto 2",
       "Projeto 3"
    ])
 })
+
+
+
+
+
 
 app.listen(3333, ()=>{
    console.log("🚀 Back-end started!")
