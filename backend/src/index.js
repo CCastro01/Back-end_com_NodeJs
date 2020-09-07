@@ -1,5 +1,5 @@
 const express = require("express")
-const { request, response } = require("express")
+const { request, response, query } = require("express")
 
 const app = express()
 //MÉTODOS HTTP
@@ -14,7 +14,7 @@ const app = express()
  * TIPOS DE PARÂMETROS
  * 
  * Query Params: Principalmente para filtos e paginação
- * Route Params:
+ * Route Params: Identificar recursos (Atualizar ou deletar)
  * Request Body:
  */
 
@@ -47,6 +47,15 @@ app.post('/projects', (request, response) => {
 })
 
 app.put('/projects/:id', (request, response) => {
+
+   // Forma comum:
+   const params = request.params
+   console.log(params)
+
+   // Forma com desestruturação:
+   const { id } = request.params
+   console.log(id)
+
    return response.json([
       "Projeto 4",
       "Projeto 2",
