@@ -49,19 +49,10 @@ app.get('/projects', (request, response) => {
 
 app.post('/projects', (request, response) => {
 
-   // // Forma comum:
-   // const body = request.body
-   // console.log(body)
-
-   // // Utilizando desestruração:
-   // const {nome} = request.body
-   // const {curso} = request.body
-   // console.log(nome)
-   // console.log(curso)
-
    const { nome, curso } = request.body
 
-   const project = { id: uuid(), nome, curso } //utilizando a biblioteca uuidv4 para criação de id
+   const project = { id: uuid(), nome, curso } 
+   //utilizando a biblioteca uuidv4 para criação de id
 
    projects.push(project)
 
