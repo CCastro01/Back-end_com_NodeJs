@@ -30,19 +30,14 @@ app.use(express.json()) //fazendo com que o express consiga interpretar um JSON
 
 app.get('/projects', (request, response) => {
 
-   // // Forma comum:
-   // const query = request.query
-   // console.log(query)
-   // console.log(query.nome)
-   // console.log(query.idade)
+   const {nome} = request.query 
 
-   // // Utilizando desestruração:
-   // const {nome, idade} = request.query 
-   // console.log(nome)
-   // console.log(idade)
+   const results = nome 
+    ? projects.filter(project => project.nome.includes(nome))
+    : projects;
 
 
-   return response.json(projects)
+   return response.json(results)
 })
 
 
