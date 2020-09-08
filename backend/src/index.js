@@ -49,6 +49,9 @@ app.get('/projects', (request, response) => {
 
 
 
+
+
+
 app.post('/projects', (request, response) => {
 
    // // Forma comum:
@@ -76,10 +79,13 @@ app.post('/projects', (request, response) => {
 
 
 
+
+
+
 app.put('/projects/:id', (request, response) => {
 
    const { id } = request.params
-   const { nome, curso } = request.body
+   const { nome, curso } = request.body //conteúdo que eu posso alterar
 
 
    const projectIndex = projects.findIndex(project => project.id === id)
@@ -111,11 +117,30 @@ app.put('/projects/:id', (request, response) => {
 
 
 
+
+
 app.delete('/projects/:id', (request, response) => {
-   return response.json([
-      "Projeto 2",
-      "Projeto 3"
-   ])
+
+   const {id} = request.params
+
+   const projectIndex = projects.findIndex(project => project.id === id)
+   //percorrendo o array projects procurando por um project cujo o id seja igual 
+   //ao id que está sendo passado por parâmetro na rota 
+   //O findIndex vai retornar a posição do projeto dentro do array
+
+   if(projectIndex < 0){
+      return response.status(400).json({
+         error: "Project not found."
+      })
+   }
+
+   projects.splice(projectIndex, 1)
+   // usando o método splice para retirar um dado do array a partir do seu índice
+   // no caso, aqui está sendo retirado o índice que foi atribuído a const projectIndex
+   // esse 1 como segundo parâmetro, quer dizer que apenas uma posição deverã ser removida
+
+
+   return response.status(204).send()
 })
 
 
