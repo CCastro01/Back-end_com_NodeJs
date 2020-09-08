@@ -78,24 +78,36 @@ app.post('/projects', (request, response) => {
 
 app.put('/projects/:id', (request, response) => {
 
-   // Forma comum:
-   const params = request.params
-   console.log(params)
-
-   // Forma com desestruturação:
    const { id } = request.params
-   console.log(id)
+   const { nome, curso } = request.body
 
-   return response.json([
-      "Projeto 4",
-      "Projeto 2",
-      "Projeto 3"
-   ])
+
+   const projectIndex = projects.findIndex(project => project.id === id)
+   //percorrendo o array projects procurando por um project cujo o id seja igual 
+   //ao id que está sendo passado por parâmetro na rota 
+   //O findIndex vai retornar a posição do projeto dentro do array
+
+   if(projectIndex < 0){
+      return response.status(400).json({
+         error: "Project not found."
+      })
+   }
+
+   const project = {
+      id,
+      nome,
+      curso
+   }
+
+   projects[projectIndex] = project 
+
+   return response.json(project)
+
 })
 
 
 
-
+ 
 
 
 
