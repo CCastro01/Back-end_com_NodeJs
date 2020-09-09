@@ -6,7 +6,7 @@ app.use(express.json()) //fazendo com que o express consiga interpretar um JSON
 
 
 
-//MÉTODOS HTTP
+//MÉTODOS HTTP:
 // 
 //GET: Buscar informações do back-end
 //POST: Criar uma informação no back-end
@@ -15,18 +15,40 @@ app.use(express.json()) //fazendo com que o express consiga interpretar um JSON
 
  
 /**
- * TIPOS DE PARÂMETROS
+ * TIPOS DE PARÂMETROS:
  * 
  * Query Params: Principalmente para filtros e paginação
  * Route Params: Identificar recursos (Atualizar ou deletar)
  * Request Body: Conteúdo na hora de criar ou editar um recurso (JSON)
  */
 
+/**
+ * MIDDLEWARE: 
+ * 
+ * Interceptador de requisições que interrompem totalmente a requisição ou altera dados da requisição.
+ */
 
 
 
+const projects = []
 
-   const projects = []
+
+//middleware
+function logRequests(request, response, next){
+
+   const { method, url} = request
+   const logLabel = `[${method.toUpperCase()} ${url}]`
+
+   console.time(logLabel)
+
+   next() //Próximo middleware
+   console.timeEnd(logLabel)
+
+}
+
+app.use(logRequests)
+
+
 
 app.get('/projects', (request, response) => {
 
