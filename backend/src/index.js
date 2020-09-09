@@ -1,5 +1,5 @@
 const express = require("express")
-const {uuid} = require("uuidv4") //importando a função uuid de dentro da biblioteca uuidv4
+const {uuid, isUuid} = require("uuidv4") //importando a função uuid de dentro da biblioteca uuidv4
 const app = express()
 
 app.use(express.json()) //fazendo com que o express consiga interpretar um JSON
@@ -46,7 +46,22 @@ function logRequests(request, response, next){
 
 }
 
+
+
+function validateProjectId(request, response, next){
+   const { id } = request.params
+
+   if(!isUuid(id)){
+      return response.status(400).json({
+         error: "Invalid project id"
+      })
+   }
+
+   return next()
+}
+
 app.use(logRequests)
+app.use("/projects/:id", validateProjectId) //adicionando esse middleware apenas nas rotas que tem esse formato
 
 
 
