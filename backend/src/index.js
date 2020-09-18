@@ -1,7 +1,10 @@
 const express = require("express")
+const cors = require('cors')
 const {uuid, isUuid} = require("uuidv4") //importando a função uuid de dentro da biblioteca uuidv4
+
 const app = express()
 
+app.use(cors())//vai permitir que qualquer front-end com acesso ao nosso back-end
 app.use(express.json()) //fazendo com que o express consiga interpretar um JSON
 
 
